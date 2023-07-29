@@ -6,3 +6,11 @@ class Szamla(models.Model):
     aktualis_osszeg = models.FloatField()
     szamla_tulajdonos = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
     szamla_tipus = models.TextField(max_length=255)
+
+# szamla_tipust javitani
+
+class Tranzakcio(models.Model):
+    szamla_id = models.ForeignKey(Szamla,on_delete=models.CASCADE)
+    datatime = models.DateTimeField()
+    osszeg = models.FloatField()
+    tranzakcio_fajta = models.CharField(max_length=255)
