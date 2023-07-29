@@ -6,3 +6,13 @@ class Szamla(models.Model):
     aktualis_osszeg = models.FloatField()
     szamla_tulajdonos = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
     szamla_tipus = models.TextField(max_length=255)
+
+
+class Kerelem(models.Model):
+    osszeg = models.FloatField()
+    futamido = models.IntegerField()
+    kamat = models.FloatField()
+    felvett = models.BooleanField()
+    leiras = models.TextField()
+    torlesztett = models.FloatField()
+    szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
