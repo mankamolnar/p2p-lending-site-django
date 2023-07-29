@@ -16,3 +16,10 @@ class Kerelem(models.Model):
     leiras = models.TextField()
     torlesztett = models.FloatField()
     szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
+# szamla_tipust javitani
+
+class Tranzakcio(models.Model):
+    szamla_id = models.ForeignKey(Szamla,on_delete=models.CASCADE)
+    datatime = models.DateTimeField()
+    osszeg = models.FloatField()
+    tranzakcio_fajta = models.CharField(max_length=255)
