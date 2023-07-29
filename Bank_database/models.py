@@ -1,3 +1,8 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
+class Szamla(models.Model):
+    aktualis_osszeg = models.FloatField()
+    szamla_tulajdonos = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
+    szamla_tipus = models.TextField(max_length=255)
