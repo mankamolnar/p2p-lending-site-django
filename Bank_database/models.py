@@ -14,7 +14,7 @@ class Kerelem(models.Model):
     kamat = models.FloatField()
     felvett = models.BooleanField()
     leiras = models.TextField()
-    torlesztett = models.FloatField()
+    torlesztett =  models.BooleanField()
     szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
 # szamla_tipust javitani
 
@@ -28,7 +28,7 @@ class Befektetes(models.Model):
     szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
     kerelem = models.ForeignKey(Kerelem, on_delete=models.CASCADE)
     osszeg = models.FloatField()
-    torlesztett = models.BooleanField()
+    torlesztett = models.FloatField()
 
 
 class Torlesztes(models.Model):
