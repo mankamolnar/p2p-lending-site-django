@@ -23,3 +23,15 @@ class Tranzakcio(models.Model):
     datatime = models.DateTimeField()
     osszeg = models.FloatField()
     tranzakcio_fajta = models.CharField(max_length=255)
+
+class Befektetes(models.Model):
+    szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
+    kerelem = models.ForeignKey(Kerelem, on_delete=models.CASCADE)
+    osszeg = models.FloatField()
+    torlesztett = models.BooleanField()
+
+
+class Torlesztes(models.Model):
+    szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
+    kerelem = models.ForeignKey(Kerelem,on_delete=models.CASCADE)
+    osszeg = models.FloatField()
