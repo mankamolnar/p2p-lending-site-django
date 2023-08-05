@@ -16,10 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
+from Bank_database.views import register
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('user_example.urls')) saját url-ek
     path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', register, name='register'),
 ]
+
+
+
+
