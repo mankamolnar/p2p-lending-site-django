@@ -29,6 +29,7 @@ class Befektetes(models.Model):
     kerelem = models.ForeignKey(Kerelem, on_delete=models.CASCADE)
     osszeg = models.FloatField()
     torlesztett = models.FloatField()
+    
 
 
 class Torlesztes(models.Model):
