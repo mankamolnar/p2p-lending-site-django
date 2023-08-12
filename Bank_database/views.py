@@ -4,20 +4,22 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from Bank_database.form import Szamlaform
+from Bank_database.models import Szamla
 # from Bank_database.form import Loginform
 
 
 # Create your views here.
 def main(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         user = request.user
         context = {"user":user}
         return render(request,"logged_in_main_webpage.html",context)
     else:
-        return render(request, "main.html", {})
+        return render(request, "index.html", {})
 
 
-def login(request):
+def logged(request):
     if request.method == "GET":
         context = {
             "userform": AuthenticationForm()
@@ -39,9 +41,13 @@ def login(request):
 def register(request):
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        user_datas = form.save()
+        szamla = Szamla(aktualis_osszeg=0,szamla_tulajdonos=user_datas,szamla_tipus="Investor")
+        szamla.save()
         user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
-        login(request, user)
-    return render(request, 'registration/registration.html', {'form': form})
+        login(request,user)
+        return render(request,"index.html",{})
+    else:
+        return render(request, 'registration/registration.html', {'form': form})
 
 
