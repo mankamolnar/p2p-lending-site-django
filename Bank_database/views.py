@@ -5,7 +5,11 @@ from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import authenticate, login
 # from Bank_database.form import Loginform
 
+
 # Create your views here.
+def main(request):
+    return render(request, "main.html", {})
+
 
 def login(request):
     if request.method == "GET":
