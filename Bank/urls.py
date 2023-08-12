@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('user_example.urls')) saját url-ek
     path('accounts/', include('django.contrib.auth.urls')),
-    path('register/', register, name='register'),
+    path('registration/', register, name='registration'),
     path('', main, name="main_page")
 ]
