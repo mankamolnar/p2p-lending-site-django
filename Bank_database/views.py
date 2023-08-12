@@ -6,7 +6,16 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 # from Bank_database.form import Loginform
 
+
 # Create your views here.
+def main(request):
+    if request.user.is_authenticated():
+        user = request.user
+        context = {"user":user}
+        return render(request,"logged_in_main_webpage.html",context)
+    else:
+        return render(request, "main.html", {})
+
 
 def login(request):
     if request.method == "GET":
@@ -35,8 +44,4 @@ def register(request):
         login(request, user)
     return render(request, 'registration/registration.html', {'form': form})
 
-@login_required
-def main_logged_webpage(request):
-    user = request.user
-    context = {"user":user}
-    return render(request,"logged_in_main_webpage.html",context)
+
