@@ -3,6 +3,7 @@ from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 # from Bank_database.form import Loginform
 
 # Create your views here.
@@ -33,3 +34,9 @@ def register(request):
         user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
         login(request, user)
     return render(request, 'registration/registration.html', {'form': form})
+
+@login_required
+def main_logged_webpage(request):
+    user = request.user
+    context = {"user":user}
+    return render(request,"logged_in_main_webpage.html",context)

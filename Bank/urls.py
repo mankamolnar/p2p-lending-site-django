@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
-from Bank_database.views import register
+from Bank_database.views import register, main_logged_webpage
 
 
 urlpatterns = [
@@ -24,6 +24,9 @@ urlpatterns = [
     # path('', include('user_example.urls')) saját url-ek
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', register, name='register'),
+
+    # Main webpage logged in:
+    path('',main_logged_webpage, name='logged_in_main_webpage')
 ]
 
 
