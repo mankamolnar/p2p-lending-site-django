@@ -15,7 +15,7 @@ def main(request):
         user = request.user
         print(user)
         szamla = Szamla.objects.get(szamla_tulajdonos=user.id)# Model/Helyi
-        context = {"user":user,"szamla":szamla.aktualis_osszeg}
+        context = {"user":user,"szamla":szamla}
         return render(request,"logged_in_main_webpage.html",context)
     else:
         return render(request, "index.html", {})
