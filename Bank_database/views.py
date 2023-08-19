@@ -13,7 +13,9 @@ from Bank_database.models import Szamla
 def main(request):
     if request.user.is_authenticated:
         user = request.user
-        context = {"user":user}
+        print(user)
+        szamla = Szamla.objects.get(szamla_tulajdonos=user.id)# Model/Helyi
+        context = {"user":user,"szamla":szamla}
         return render(request,"logged_in_main_webpage.html",context)
     else:
         return render(request, "index.html", {})
@@ -46,7 +48,7 @@ def register(request):
         szamla.save()
         user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
         login(request,user)
-        return render(request,"index.html",{})
+        return render(request,"main.html",{})
     else:
         return render(request, 'registration/registration.html', {'form': form})
 
