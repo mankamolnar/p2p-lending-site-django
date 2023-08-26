@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from Bank_database.form import Szamlaform
+from Bank_database.form import Szamlaform , AddToBalanceForm
 from Bank_database.models import Szamla
 # from Bank_database.form import Loginform
 
@@ -28,6 +28,7 @@ def logged(request):
         }
         return render(request,"registration/login.html",context)
     if request.method == "POST":
+        print("correct")
         username = request.POST['username']
         password = request.POST['password']
 
@@ -51,5 +52,21 @@ def register(request):
         return redirect("main_page")
     else:
         return render(request, 'registration/registration.html', {'form': form})
+    
+
+#Functions
+
+def add_currency_to_account(request):
+    if request.method == "GET":
+        currency = AddToBalanceForm()
+        context = {"added_currency": currency}
+        return render(request,"add_to_balance.html",context)
+    if request.method == "POST":
+        user = request.user.id
+        account_data = Szamla.objects.get(szamla_tulajdonos = user)
+        account_data.aktualis_osszeg = request.POST["osszeg"]
+        account_data.save()
+        context = {}
+        return redirect("main_page")
 
 

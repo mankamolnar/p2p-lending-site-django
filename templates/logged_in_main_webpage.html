@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Document</title>
 </head>
+{%include 'background.html'%}
 <body>
 {%include 'navbar.html'%}
     <p>Welcome to the site {{user}}</p>
@@ -35,5 +36,6 @@
         </tr>
       </table>
     </div>
+    <a class="btn btn-primary" href="/addtobalance/">Add to Balance</a>
 </body>
 </html>

@@ -5,9 +5,13 @@ from django.conf import settings
 
 
 class Szamlaform(forms.ModelForm):
-    meta = model.Szamla
-    fields = [
-            "aktualis_osszeg",
-            "szamla_tulajdonos",
-            "szamla_tipus",
-    ]
+    class Meta:
+        model=model.Szamla
+        fields = [
+                "aktualis_osszeg",
+                "szamla_tulajdonos",
+                "szamla_tipus",
+        ]
+
+class AddToBalanceForm(forms.Form):
+    osszeg = forms.FloatField()
