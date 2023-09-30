@@ -20,7 +20,7 @@ from django.contrib.auth.decorators import login_required
 from Bank_database.form import Szamlaform , AddToBalanceForm , Userform ,CustomUserCreationForm
 
 #Model imports:
-from Bank_database.models import Szamla
+from Bank_database.models import Szamla, Kerelem
 
 #Error code imports:
 from django.core.exceptions import ObjectDoesNotExist
@@ -104,3 +104,8 @@ def error_404(request,exception):
     return render(request,"error404.html",{})
 
 
+def list_lendings(request):
+    context = {
+      "kerelmek": Kerelem.objects.filter(torlesztett=False)
+    }
+    return render(request, "list_lendings.html", context)
