@@ -11,5 +11,31 @@
   {%include 'navbar.html'%}
 
   <h1>Lendings</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Value</th>
+        <th scope="col">Length</th>
+        <th scope="col">Interest</th>
+        <th scope="col">Payed out</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for kerelem in kerelmek %}
+      <tr>
+        <th>{{ kerelem.id }}</th>
+        <th>{{ kerelem.osszeg }}</th>
+        <th>{{ kerelem.futamido }}</th>
+        <th>{{ kerelem.kamat }}</th>
+        <th>{{ kerelem.felvett }}</th>
+        <th>{{ kerelem.leiras }}</th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </body>
 </html>
