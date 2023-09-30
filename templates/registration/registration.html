@@ -4,19 +4,50 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--Imports and other html forms:-->
+  {%include 'base.html'%}
+  {%include 'navbar.html'%}
+
+  <!--Title:-->
   <title>Registration</title>
+
+  <!--Head-->
 </head>
+
+<!--Background image-->
 {%include 'background.html'%}
+
+
 <body>
     <h1>Registration</h1>
     <form method="post" action="{% url 'registration' %}">
+      <!--CSRF_TOKEN-->
       {% csrf_token %}
+      <!--Error_Handling-->
       {% if form.errors %}
-        there are errors in the form.
+        Form is not correct, there are errors in the form.
       {% endif %}
+
+      <!--Registration Form-->
     
-      {{ form }}
       
+
+      <!--Form:-->
+
+      <div class="form-floating mb-3">
+        {{form.username}}
+        <label for="floatingInputUser">Username</label>
+      </div>
+      <div class="form-floating">
+        {{form.password1}}
+        <label for="floatingPassword1">Password</label>
+      </div>
+      <div class="form-floating">
+        {{form.password2}}
+        <label for="floatingPassword2">Confirm Password</label>
+      </div>
+      <!--Selection of type:-->
       <select name="account_type">
         <option value="Investor">Investor</option>
         <option value="Lender">Lender</option>
