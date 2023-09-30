@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
-from Bank_database.views import register, main , add_currency_to_account
+from Bank_database.views import register, main , add_currency_to_account , logged
 
 
 urlpatterns = [
@@ -24,6 +24,10 @@ urlpatterns = [
     # path('', include('user_example.urls')) saját url-ek
     path('accounts/', include('django.contrib.auth.urls')),
     path('registration/', register, name='registration'),
+    #Custom login:
+    path('login/',logged, name="custom_login"),
     path('', main, name="main_page"),
-    path('addtobalance/',add_currency_to_account,name='add_currency')
+    path('addtobalance/',add_currency_to_account,name='add_currency'),
 ]
+#Error Handling with 404
+handler404 = "Bank_database.views.error_404"
