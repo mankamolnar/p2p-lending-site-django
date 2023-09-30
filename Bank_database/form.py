@@ -30,3 +30,17 @@ class CustomUserCreationForm(UserCreationForm):
     username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True,"class":"form-control","id":"floatingInputUser","placeholder":"Username"}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={"autocomplete": "new-password","class":"form-control","id":"floatingPassword1"}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={"autocomplete": "new-password","class":"form-control","id":"floatingPassword2"}))
+
+class LendMoneyForm(forms.ModelForm):
+        class Meta:
+             model = model.Kerelem
+             fields = [
+                  "osszeg",
+                  "futamido",
+                  "kamat",
+                  "felvett",
+                  "leiras",
+                  "torlesztett",
+                  "szamla",
+             ]
+

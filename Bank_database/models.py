@@ -12,9 +12,9 @@ class Kerelem(models.Model):
     osszeg = models.FloatField()
     futamido = models.IntegerField()
     kamat = models.FloatField()
-    felvett = models.BooleanField()
+    felvett = models.BooleanField(default=False)
     leiras = models.TextField()
-    torlesztett =  models.BooleanField()
+    torlesztett =  models.BooleanField(default=False)
     szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
 # szamla_tipust javitani
 
