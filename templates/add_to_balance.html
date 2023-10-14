@@ -1,16 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {%include 'base.html'%}
-    <title>Document</title>
-</head>
-<body>
+{%extends 'base.html' %}
+
+
+<!--Navbar-->
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+<!--Head-->
+{% block head %}
+{%endblock%}
+
+<!--Background-->
+{% block background %}
+    {% include 'background.html' %}
+{% endblock %}
+
+<!--Page_Content-->
+{% block content %}
     <form method="post">
-    {%csrf_token%}
-    {{added_currency}}
-    <button type="submit">Add</button>
+        {%csrf_token%}
+        {{added_currency}}
+        <button type="submit">Add</button>
     </form>
-</body>
-</html>
+{% endblock %}

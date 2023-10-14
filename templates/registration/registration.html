@@ -1,59 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--Base_Extend-->
+{% extends 'base.html' %}
 
-  <!--Imports and other html forms:-->
-  {%include 'base.html'%}
-  {%include 'navbar.html'%}
+<!--Navbar-->
+{% block navbar %}
+{%include 'navbar.html'%}
+{% endblock %}
 
-  <!--Title:-->
-  <title>Registration</title>
+<!--Title-->
+{% block title %}
+<title>Registration</title>
+{% endblock %}
 
-  <!--Head-->
-</head>
+<!--Header-->
+{%block header %}
+{% endblock %}
 
-<!--Background image-->
-{%include 'background.html'%}
+<!--Background-->
 
+<!--Page_body-->
+{% block content %}
+<!--CSS styles-->
+<style>
+  .container-md {
+    margin: 40 auto;
+    margin-top: 80px;
+    text-align: center;
+    padding: 20px;
+    background-color: #f6f1f192;
+    border: 2px solid #7a747485;
+    box-shadow: 0 0 10px rgba(195, 47, 47, 0.315);
+    max-width: 300px;
+    border-radius: 20px;
+  
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 70vh;
+  }
+</style>
+<style>
+  .own-button {
+      color: white;
+      background-image: linear-gradient(to right, rgba(36, 144, 190, 0.797), rgb(105, 59, 173));
+      border-radius: 30px;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration:none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+  }
+</style>
+<div class="container-md">
+  <h1>Registration</h1>
+  <h1 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Just One More Step</h1>
+  <br>
+  <!--Registration Form-->
+  <form method="post" action="{% url 'registration' %}">
+    <!--CSRF_TOKEN-->
+    {% csrf_token %}
+    <!--Error_Handling-->
+    {% if form.errors %}
+      Form is not correct, there are errors in the form.
+    {% endif %}
 
-<body>
-    <h1>Registration</h1>
-    <form method="post" action="{% url 'registration' %}">
-      <!--CSRF_TOKEN-->
-      {% csrf_token %}
-      <!--Error_Handling-->
-      {% if form.errors %}
-        Form is not correct, there are errors in the form.
-      {% endif %}
-
-      <!--Registration Form-->
     
-      
+    <!--Form:-->
+    <div class="form-floating mb-3">
+      {{form.username}}
+      <label for="floatingInputUser">Username</label>
+    </div>
 
-      <!--Form:-->
+    <div class="form-floating mb-3">
+      {{form.password1}}
+      <label for="floatingPassword1">Password</label>
+    </div>
 
-      <div class="form-floating mb-3">
-        {{form.username}}
-        <label for="floatingInputUser">Username</label>
-      </div>
-      <div class="form-floating">
-        {{form.password1}}
-        <label for="floatingPassword1">Password</label>
-      </div>
-      <div class="form-floating">
-        {{form.password2}}
-        <label for="floatingPassword2">Confirm Password</label>
-      </div>
-      <!--Selection of type:-->
+    <div class="form-floating mb-3">
+      {{form.password2}}
+      <label for="floatingPassword2">Confirm Password</label>
+    </div>
+
+    <!--Selection of type:-->
+    <div class="selector">
+      <p>Please Select the Type of the Account</p>
       <select name="account_type">
         <option value="Investor">Investor</option>
         <option value="Lender">Lender</option>
       </select>
-      
-      <input type="submit" value="Register">
-    </form>
-</body>
-</html>
+    </div>
+    
+    <div>
+      <input type="submit" class="own-button" value="Register">
+    </div>
+  </form>
+</div>
+{% endblock %}
