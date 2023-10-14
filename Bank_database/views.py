@@ -120,4 +120,3 @@ def lend_money(request):
         "form":lend_request_form,
     }
     return render(request,"lend_moneysite.html",context)
-
