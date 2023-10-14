@@ -1,41 +1,50 @@
-{%load static%}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {%include 'base.html'%}
-    <title>Document</title>
-</head>
-{%include 'background.html'%}
-<body>
-{%include 'navbar.html'%}
-    <p>Welcome to the site {{user}}</p>
+{% extends 'base.html' %}
 
-    <!-- CONTAINER - ADDS MARGIN -->
-    <div class="container-md">
+<!--Navbar-->
 
-    <!-- DASHBOARD -->
-    <table class="table table-dark table-striped">
-        <tr>
-          <th>
-            Owner
-          </th>
-          <th>
-            Money [Ft]
-          </th>
-          <th>
-            Type
-          </th>
-        </tr>
-        <tr>
-          <td>{{szamla.szamla_tulajdonos}}</td>
-          <td>{{szamla.aktualis_osszeg}}</td>
-          <td>{{szamla.szamla_tipus}}</td>
-          
-        </tr>
-      </table>
-    </div>
-    <a class="btn btn-primary" href="/addtobalance/">Add to Balance</a>
-</body>
-</html>
+
+<!--Title-->
+{% block title %}
+  <!--Put Title Here-->
+{% endblock %}
+
+<!--Head-->
+{%block head %}
+  <!--Put Head Here-->
+{% endblock %}
+
+<!--Background-->
+{%block background %}
+  {%include 'background.html' %}
+{% endblock %}
+
+<!--Page_Content-->
+{% block content %}
+      <p>Welcome to the site {{user}}</p>
+  
+      <!-- CONTAINER - ADDS MARGIN -->
+      <div class="container-md">
+  
+      <!-- DASHBOARD -->
+      <table class="table table-dark table-striped">
+          <tr>
+            <th>
+              Owner
+            </th>
+            <th>
+              Money [Ft]
+            </th>
+            <th>
+              Type
+            </th>
+          </tr>
+          <tr>
+            <td>{{szamla.szamla_tulajdonos}}</td>
+            <td>{{szamla.aktualis_osszeg}}</td>
+            <td>{{szamla.szamla_tipus}}</td>
+            
+          </tr>
+        </table>
+      </div>
+      <a class="btn btn-primary" href="/addtobalance/">Add to Balance</a>
+{% endblock %}

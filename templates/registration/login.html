@@ -1,105 +1,110 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<!--Load static:-->
-{%load static%}
+<!--Navbar_Block-->
+{% block navbar %}
+{%include 'navbar.html'%}
+{% endblock %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!--Imports and base html:-->
-    {%include 'base.html'%}
-    {%include 'navbar.html'%}
-    
-
-    <!--Title:-->
-    <title>Login</title>
-
-<!--Header:-->
-</head>
-<body>
-<!--CSS styles-->
-    <style>
-        .container-md {
-    margin: 40 auto;
-    margin-top: 80px;
-    text-align: center;
-    padding: 20px;
-    background-color: #f6f1f192;
-    border: 2px solid #7a747485;
-    box-shadow: 0 0 10px rgba(120, 114, 114, 0.315);
-    max-width: 300px;
-    border-radius: 20px;
+<!--Title_Block-->
+{% block title %}
+<title>Login</title>
+{% endblock %}
 
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 70vh;
-}
-    </style>
+<!--Header_Block-->
+{% block header %}
+{% endblock %}
 
-    <style>
-        .own-button {
-            color: white;
-            background-image: linear-gradient(to right, rgba(36, 144, 190, 0.797), rgb(105, 59, 173));
-            border-radius: 30px;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration:none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-    </style>
-
-<!--Backround Image:-->
+<!--Background_Block-->
+{% block background %}
 {%include 'background.html'%}
+{% endblock %}
+
+<!--Page_Block-->
+{% block content %}
 
 
-    <div class="container-md">
-        <h1 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Welcome</h1>
-
-        <br>
-
-
-        <!--Error handling during login:-->
-        {% if form.errors %}
-        <p class="error">Error happend during login</p>
-        {% endif %}
-        
-        {% if next %}
-        <p class="error">Hey, you can't access that page.</p>
-        {% endif %}
+<!--CSS styles-->
+<style>
+    .container-md {
+margin: 40 auto;
+margin-top: 80px;
+text-align: center;
+padding: 20px;
+background-color: #f6f1f192;
+border: 2px solid #7a747485;
+box-shadow: 0 0 10px rgba(120, 114, 114, 0.315);
+max-width: 300px;
+border-radius: 20px;
 
 
-        <!--Login form:-->
-        <form method="post" action="{% url 'login' %}">
+display: flex;
+flex-direction: column;
+justify-content: center;
+height: 70vh;
+}
+</style>
 
-            <!--CSRF_TOKEN:-->
-            {% csrf_token %}
+<style>
+    .own-button {
+        color: white;
+        background-image: linear-gradient(to right, rgba(36, 144, 190, 0.797), rgb(105, 59, 173));
+        border-radius: 30px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration:none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+</style>
 
-            <!--Username:-->
-            <div class="form-floating mb-3">
-                {{form.username}}
-                <label for="{{ form.username.id_for_label }}">Username</label>
-            </div>
 
-            <!--Password:-->
-            <div class="form-floating">
-                {{form.password}}
-                <label for="{{ form.password.id_for_label }}">Password</label>
-            </div>
+<!--Login Form-->
 
-            <!--Buttons:-->
-            <div>
-                <input type="submit" class="own-button" value="LOGIN">
-                <input type="hidden" name="next" value="{{ next }}">
-            </div>
-        </form>
-    </div>
-</body>
-</html>
+<div class="container-md">
+    <h1 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Welcome</h1>
+
+    <br>
+
+
+    <!--Error handling during login:-->
+    {% if form.errors %}
+    <p class="error">Error happend during login</p>
+    {% endif %}
+    
+    {% if next %}
+    <p class="error">Hey, you can't access that page.</p>
+    {% endif %}
+
+
+    <!--Login form:-->
+    <form method="post" action="{% url 'login' %}">
+
+        <!--CSRF_TOKEN:-->
+        {% csrf_token %}
+
+        <!--Username:-->
+        <div class="form-floating mb-3">
+            {{form.username}}
+            <label for="{{ form.username.id_for_label }}">Username</label>
+        </div>
+
+        <!--Password:-->
+        <div class="form-floating">
+            {{form.password}}
+            <label for="{{ form.password.id_for_label }}">Password</label>
+        </div>
+
+        <!--Buttons:-->
+        <div>
+            <input type="submit" class="own-button" value="LOGIN">
+            <input type="hidden" name="next" value="{{ next }}">
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
 

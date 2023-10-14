@@ -1,1 +1,45 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!--Parts of the Base HTML-->
+
+<!-- Navbar_Blocl:=>  Name_Value: (navbar)-->
+<!-- Title_Block:=>   Name_Value: (title)-->
+<!-- Head_Block :=>  Name_Value: (head)-->
+<!-- Background_Block :=> Name_Value:(background) -->
+<!-- Page_Block :=>   Name_Value: (content)-->
+
+
+
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!DOCTYPE html>
+    <title>Document</title>
+</head>
+
+
+
+
+<body>
+<!--Navbar_Block-->
+    {%include 'navbar.html'%}
+
+<!--Title_block-->
+    {% block title %}
+    {% endblock %}
+
+<!--Head_Block-->
+    {% block head %}
+    {% endblock %}
+
+<!--Backgrounds_Block-->
+    {% block background %}
+    {%include 'background.html'%}
+    {% endblock %}
+
+<!--Page body-->
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

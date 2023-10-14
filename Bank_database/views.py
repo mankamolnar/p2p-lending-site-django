@@ -13,7 +13,7 @@ from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib import messages
 
 #Function imports
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
 
 #Form imports:
@@ -85,7 +85,7 @@ def register(request):
     
 
 #Functions which used for the pages:
-
+#Nem add hozzá
 def add_currency_to_account(request):
     if request.method == "GET":
         currency = AddToBalanceForm()
@@ -97,15 +97,16 @@ def add_currency_to_account(request):
         account_data.aktualis_osszeg = request.POST["osszeg"]
         account_data.save()
         context = {}
-        return redirect("main_page")
+        return main(request)
+        #return redirect("main_page")
     
 #404 Error handling:
 def error_404(request,exception):
     return render(request,"error404.html",{})
 
-
+@login_required(login_url="/login/")
 def list_lendings(request):
-    context = {
-      "kerelmek": Kerelem.objects.filter(torlesztett=False)
-    }
-    return render(request, "list_lendings.html", context)
+        context = {
+        "kerelmek": Kerelem.objects.filter(torlesztett=False)
+        }
+        return render(request, "list_lendings.html", context)
