@@ -122,4 +122,7 @@ def lend_money(request):
     return render(request,"lend_moneysite.html",context)
 
 def my_investments(request):
+    context = {
+      investments
+    }
     return render(request, "my_investments.html", {})
