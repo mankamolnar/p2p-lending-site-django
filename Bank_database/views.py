@@ -17,7 +17,7 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
 
 #Form imports:
-from Bank_database.form import Szamlaform , AddToBalanceForm , Userform ,CustomUserCreationForm
+from Bank_database.form import Szamlaform , AddToBalanceForm , Userform ,CustomUserCreationForm , LendMoneyForm
 
 #Model imports:
 from Bank_database.models import Szamla, Kerelem
@@ -110,3 +110,13 @@ def list_lendings(request):
         "kerelmek": Kerelem.objects.filter(torlesztett=False)
         }
         return render(request, "list_lendings.html", context)
+#Kerelem function
+def lend_money(request):
+    active_user = request.user
+    lend_request_form= LendMoneyForm()
+
+    lend_request_form = LendMoneyForm(initial={"szamla":Szamla.objects.get(szamla_tulajdonos = active_user)})
+    context = {
+        "form":lend_request_form,
+    }
+    return render(request,"lend_moneysite.html",context)

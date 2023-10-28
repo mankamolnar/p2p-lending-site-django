@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
-from Bank_database.views import register, main , add_currency_to_account , logged, list_lendings
+from Bank_database.views import register, main , add_currency_to_account , logged, list_lendings,lend_money
 
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     path('', main, name="main_page"),
     path('addtobalance/',add_currency_to_account,name='add_currency'),
     path('list-lendings/',list_lendings,name='list_lendings'),
+    path('lend_money/',lend_money,name='lend_money'),
 ]
 #Error Handling with 404
 handler404 = "Bank_database.views.error_404"
