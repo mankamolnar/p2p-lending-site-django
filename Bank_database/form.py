@@ -38,9 +38,16 @@ class LendMoneyForm(forms.ModelForm):
                   "osszeg",
                   "futamido",
                   "kamat",
-                  "felvett",
                   "leiras",
-                  "torlesztett",
                   "szamla",
              ]
 
+class InvestMoneyForm(forms.ModelForm):
+     class Meta:
+          model = model.Befektetes
+          fields = [
+               "szamla",
+               "kerelem",
+               "osszeg",
+               "torlesztett",
+          ]

@@ -1,0 +1,15 @@
+{%extends 'base.html' %}
+
+
+{% block content %}
+    <p>
+        Are you sure you want to take the lended money ?
+    </p>
+    <form method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" name="Yes">
+    </form>
+    
+    <a class= "btn btn-primary" href="{% url 'list_lendings'%}">No</a><!--Be kell kötni máshova hogy a nem akkor mi legynen-->
+{% endblock %}
