@@ -8,14 +8,27 @@ class Szamla(models.Model):
     szamla_tipus = models.TextField(max_length=255)
 
 
+    # A login form felhsználhatja a __str__ függvényt nem lehet beloggolni ezzel 
+    def __str__(self) -> str:
+       return "Account of {0} Type:{1} Balance:{2} ".format(self.szamla_tulajdonos,self.szamla_tipus,self.aktualis_osszeg)
+    
+
 class Kerelem(models.Model):
     osszeg = models.FloatField()
     futamido = models.IntegerField()
     kamat = models.FloatField()
-    felvett = models.BooleanField(default=False)
     leiras = models.TextField()
-    torlesztett =  models.BooleanField(default=False)
+    #Lender Data's: (Who gives money):
+    felvett = models.BooleanField(default=False)
     szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
+    #Invester's Data's: (Takes money):
+    torlesztett =  models.BooleanField(default=False)
+
+#    def __str__(self):
+#        return str(self.leiras)
+
+    
+
 # szamla_tipust javitani
 
 class Tranzakcio(models.Model):
@@ -24,11 +37,17 @@ class Tranzakcio(models.Model):
     osszeg = models.FloatField()
     tranzakcio_fajta = models.CharField(max_length=255)
 
+#    def __str__(self) -> str:
+#        return str(self.szamla_id)
+
 class Befektetes(models.Model):
     szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
     kerelem = models.ForeignKey(Kerelem, on_delete=models.CASCADE)
     osszeg = models.FloatField()
     torlesztett = models.FloatField()
+
+#    def __str__(self):
+#        return str(self.szamla) + str(self.kerelem)
     
 
 
@@ -36,3 +55,7 @@ class Torlesztes(models.Model):
     szamla = models.ForeignKey(Szamla, on_delete=models.CASCADE)
     kerelem = models.ForeignKey(Kerelem,on_delete=models.CASCADE)
     osszeg = models.FloatField()
+
+
+#    def __str__(self):
+#        return str(self.kerelem)
