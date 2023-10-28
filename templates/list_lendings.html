@@ -2,7 +2,6 @@
 
 <!--Navbar-->
 {% block navbar %}
-  {%include 'navbar.html' %}
 {% endblock %}
 
 <!--Title-->
@@ -24,7 +23,6 @@
 {% block content %}
 <body>
   {%include 'background.html'%}
-  {%include 'navbar.html'%}
 
   <h1>Lendings</h1>
 
@@ -32,11 +30,11 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Value</th>
-        <th scope="col">Length</th>
-        <th scope="col">Interest</th>
-        <th scope="col">Payed out</th>
-        <th scope="col">Description</th>
+        <th scope="col">Value[Ft]</th>
+        <th scope="col">Length[Time]</th>
+        <th scope="col">Interest[%]</th>
+        <th scope="col">Payed out[]</th>
+        <th scope="col">Description[]</th>
       </tr>
     </thead>
     <tbody>
@@ -49,6 +47,7 @@
         <th>{{ kerelem.kamat }}</th>
         <th>{{ kerelem.felvett }}</th>
         <th>{{ kerelem.leiras }}</th>
+        <th><a href='/invest_money/{{kerelem.id}}'>Invest Money</a></th> <!--With this button you can take money-->
       </tr>
       {% endfor %}
     </tbody>
