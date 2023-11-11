@@ -120,9 +120,6 @@ def list_lendings(request):
 
 
 def my_investments(request):
-    context = {
-      investments
-    }
     return render(request, "my_investments.html", {})
 
 @login_required(login_url="/login/")
