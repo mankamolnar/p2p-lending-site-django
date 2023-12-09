@@ -41,12 +41,12 @@
 
       {% for kerelem in kerelmek %}
       <tr>
-        <th>{{ kerelem.id }}</th>
-        <th>{{ kerelem.osszeg }}</th>
-        <th>{{ kerelem.futamido }}</th>
-        <th>{{ kerelem.kamat }}</th>
-        <th>{{ kerelem.felvett }}</th>
-        <th>{{ kerelem.leiras }}</th>
+        <td>{{ kerelem.id }}</th>
+        <td>{{ kerelem.osszeg }}</td>
+        <td>{{ kerelem.futamido }}</td>
+        <td>{{ kerelem.kamat }}</td>
+        <td>{{ kerelem.felvett }}</td>
+        <td>{{ kerelem.leiras }}</td>
         <th><a href='/invest_money/{{kerelem.id}}'>Invest Money</a></th> <!--With this button you can take money-->
       </tr>
       {% endfor %}

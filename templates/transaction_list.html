@@ -1,0 +1,40 @@
+{%extends 'base.html'%}
+
+<!--Navbar-->
+{%block navbar%}
+{%endblock%}
+
+<!--Title-->
+{%block title%}
+{%endblock%}
+
+{%block head%}
+<!--Put head here-->
+{%endblock%}
+
+
+
+{%block content%}
+<body>
+    <!--Iterating throught of the objects-->
+    <h1>My Transactions</h1>
+    <table class="table">
+        <tr>
+            <th scope="col">Account_ID</th>
+            <th scope="col">DateTime</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Type</th>
+        </tr>
+        <tbody>
+            {%for transactions in list_items%}
+            <tr>
+                <td>{{transactions.szamla_id}}</td>
+                <td>{{transactions.datatime}}</td>
+                <td>{{transactions.osszeg}}</td>
+                <td>{{transactions.tranzakcio_fajta}}</td>
+            </tr>
+            {%endfor%}  
+        </tbody>
+    </table>
+</body>
+{%endblock%}

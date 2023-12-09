@@ -39,8 +39,8 @@
         
 
         {% if request.user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="">Transactions</a>
+        <li class="nav-item"> <!--This is a better way to link url use this whenever you can-->
+          <a class="nav-link" href="{%url 'transaction_list' %}">Transactions</a>
         </li>
         {% endif %}
         
