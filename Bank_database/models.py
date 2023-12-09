@@ -10,7 +10,7 @@ class Szamla(models.Model):
 
     # A login form felhsználhatja a __str__ függvényt nem lehet beloggolni ezzel 
     def __str__(self) -> str:
-       return "Account of {0} Type:{1} Balance:{2} ".format(self.szamla_tulajdonos,self.szamla_tipus,self.aktualis_osszeg)
+       return "Account of {0}".format(self.szamla_tulajdonos)
     
 
 class Kerelem(models.Model):
@@ -33,7 +33,7 @@ class Kerelem(models.Model):
 
 class Tranzakcio(models.Model):
     szamla_id = models.ForeignKey(Szamla,on_delete=models.CASCADE)
-    datatime = models.DateTimeField()
+    datatime = models.DateTimeField(auto_now_add=True , null=True, blank=True) #
     osszeg = models.FloatField()
     tranzakcio_fajta = models.CharField(max_length=255)
 

@@ -16,22 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
-from Bank_database.views import register, main , add_currency_to_account , logged, list_lendings,lend_money, my_investments, invest_money
-
+import Bank_database.views as viewer
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('user_example.urls')) saját url-ek
     path('accounts/', include('django.contrib.auth.urls')),
-    path('registration/', register, name='registration'),
+    path('registration/', viewer.register, name='registration'),
     #Custom login:
-    path('login/',logged, name="custom_login"),
-    path('', main, name="main_page"),
-    path('addtobalance/',add_currency_to_account,name='add_currency'),
-    path('list-lendings/',list_lendings,name='list_lendings'),
-    path('lend_money/',lend_money,name='lend_money'),
-    path('my-investments/', my_investments, name='my_investments'),
-    path('invest_money/<int:id>/',invest_money,name='invest_money')
+    path('login/',viewer.logged, name="custom_login"),
+    path('', viewer.main, name="main_page"),
+    path('addtobalance/',viewer.add_currency_to_account,name='add_currency'),
+    path('list-lendings/',viewer.list_lendings,name='list_lendings'),
+    path('lend_money/',viewer.lend_money,name='lend_money'),
+    path('my-investments/', viewer.my_investments, name='my_investments'),
+    path('invest_money/<int:id>/',viewer.invest_money,name='invest_money'),
+    path('widthdrawn/', viewer.withdraw_currency_from_account, name="widthdrawn"),
+    path('transaction_list/',viewer.transaction_list_for_user, name="transaction_list")
 ]
 #Error Handling with 404
 handler404 = "Bank_database.views.error_404"

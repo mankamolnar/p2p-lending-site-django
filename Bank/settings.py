@@ -76,6 +76,41 @@ WSGI_APPLICATION = 'Bank.wsgi.application'
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+print(str(BASE_DIR) + "/" + 'debug.log')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True, # Terminal log
+    'handlers': {                       #Settings for destination
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': str(BASE_DIR) + "/" + 'debug2.log',
+        },
+        'file2': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': str(BASE_DIR) + "/" + 'debug_view.log',
+        },
+        'console': {
+                    "class": "logging.StreamHandler",
+                    'level': "DEBUG",
+                    
+                },
+    },
+    'loggers': {
+        'Test_logger': {
+            'handlers': ['file','console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'View_logger': {
+            'handlers': ['file2','console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        }
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

@@ -20,10 +20,10 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
 
 #Form imports:
-from Bank_database.form import Szamlaform , AddToBalanceForm , Userform ,CustomUserCreationForm , LendMoneyForm, InvestMoneyForm
+from Bank_database.form import Szamlaform ,Userform ,CustomUserCreationForm , LendMoneyForm, InvestMoneyForm, TransactionForm, WidthdrawForm
 
 #Model imports:
-from Bank_database.models import Szamla, Kerelem ,Befektetes
+from Bank_database.models import Szamla, Kerelem ,Befektetes ,Tranzakcio
 
 #Error code imports:
 from django.core.exceptions import ObjectDoesNotExist
@@ -37,6 +37,18 @@ from django.forms.widgets import TextInput
 
 
 
+#Time import:
+import time ,datetime
+
+
+#Logging import:
+import logging
+
+#Decorators:
+import Bank_database.decorators
+from .decorators import is_lender, is_investor
+logger = logging.getLogger("View_logger")
+
 # Create your views here.
 def main(request):
     if request.user.is_authenticated:
@@ -44,8 +56,6 @@ def main(request):
         szamla = get_object_or_404(Szamla,szamla_tulajdonos=user.id)# Model/Helyi
         context = {"user":user,"szamla":szamla}
         return render(request,"logged_in_main_webpage.html",context)
-
-
     else:
         return render(request, "index.html", {})
 
@@ -87,14 +97,25 @@ def register(request):
     
 
 #Functions which used for the pages:
-#Nem add hozzá
 def add_currency_to_account(request):
+    active_user = request.user
+    user_account = Szamla.objects.get(szamla_tulajdonos = active_user)
     if request.method == "GET":
-        currency = AddToBalanceForm()
-        context = {"added_currency": currency}
+        currency_form = TransactionForm(initial={"szamla_id" : user_account, "tranzakcio_fajta":"Befizetés"})
+        field1 = currency_form.fields["szamla_id"]
+        field3 = currency_form.fields["tranzakcio_fajta"]
+
+        field1.widget = field1.hidden_widget()
+        field3.widget = field3.hidden_widget()
+
+        context = {"added_currency": currency_form}
         return render(request,"add_to_balance.html",context)
+    
     if request.method == "POST":
         user = request.user.id
+        transaction = TransactionForm(request.POST)
+        transaction.save()
+
         account_data = Szamla.objects.get(szamla_tulajdonos = user)
         actual_balance = account_data.aktualis_osszeg
         account_data.aktualis_osszeg = int(request.POST["osszeg"]) + int(actual_balance) #The new actual balance
@@ -102,11 +123,55 @@ def add_currency_to_account(request):
         context = {}
         return main(request) # Instead of redirect to  not load the HTTP again.
     
+
+def withdraw_currency_from_account(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
+    else:
+        active_user = request.user
+        user_account = Szamla.objects.get(szamla_tulajdonos = active_user)
+        print(user_account)
+        
+        if request.method == "GET":
+            withdraw_form = WidthdrawForm()
+            context = {"form": withdraw_form}
+            return render(request,"withdrawn.html",context)
+        elif request.method == "POST":
+            
+            form_data = WidthdrawForm(request.POST)
+            if form_data.is_valid():
+                transaction = Tranzakcio()
+                data = Tranzakcio(szamla_id = user_account,tranzakcio_fajta = "Kifizetés", osszeg= float(form_data.cleaned_data["osszeg"]))
+                data.save()
+                return main(request)
+                """
+                osszeg = form_data.cleaned_data["osszeg"] #Cleaned data validálva van.
+                transaction = TransactionForm(initial={"szamla_id" : user_account,"tranzakcio_fajta":"Kifizetés","osszeg": float(osszeg)})
+                print(transaction.data)
+                if transaction.is_valid(): 
+                    print(transaction.data)   
+                    transaction.save()
+                else:
+                    print(transaction.errors.as_data())
+                context = {}
+            return main(request)
+            """
+
+
+def transaction_list_for_user(request):
+    active_user = request.user
+    user_account = Szamla.objects.get(szamla_tulajdonos = active_user)
+    transactions_of_users = Tranzakcio.objects.filter(szamla_id = user_account)
+    context = {"list_items": transactions_of_users}
+    return render(request,"transaction_list.html",context)
+
+
 #404 Error handling:
 def error_404(request,exception):
     return render(request,"error404.html",{})
 
-@login_required(login_url="/login/")
+
+@is_investor
 def list_lendings(request):
         if request.method == "GET":
             context = {
@@ -118,7 +183,7 @@ def list_lendings(request):
 #Kerelem function
 
 
-
+@is_investor
 def my_investments(request):
     return render(request, "my_investments.html", {})
 
@@ -142,9 +207,9 @@ def lend_money(request):
         return render(request,"lend_moneysite.html",context)
     
 #Invest Money it takes the Lended money and add it to the logged user's account:
-    
+@is_investor
 def invest_money(request,id):
-    
+    #https://stackoverflow.com/questions/48097400/wrapper-got-an-unexpected-keyword-argument-id
     active_user = request.user
     choosen_invest = Kerelem.objects.get(pk=id)
     if request.method == "POST":
@@ -188,7 +253,7 @@ def invest_money(request,id):
             invest_money_form.save()
 
             #Logging Warning test not working print helyett
-            logging.warning(choosen_invest)
+            #logging.warning(choosen_invest)
 
             
             context = {"lended_money": choosen_invest.osszeg}
@@ -217,13 +282,14 @@ def invest_money(request,id):
                    } 
         return render(request,"lending_take_confirmation.html",context)
         
-
+@is_lender
 def list_your_taken_money(request):
     pass
     active_user = request.user
     own_investments = Kerelem.objects.get(invester_balance = active_user)
     context = {"investments":own_investments}
     return render(request,"",context)
+
 
 
 
