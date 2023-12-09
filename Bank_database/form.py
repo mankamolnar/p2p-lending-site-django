@@ -16,8 +16,6 @@ class Szamlaform(forms.ModelForm):
                 "szamla_tipus",
         ]
 
-class AddToBalanceForm(forms.Form):
-    osszeg = forms.FloatField()
 
 class Userform(AuthenticationForm):
     #def __init__(self, request: Any = ..., *args: Any, **kwargs: Any) -> None:
@@ -51,3 +49,17 @@ class InvestMoneyForm(forms.ModelForm):
                "osszeg",
                "torlesztett",
           ]
+
+class TransactionForm(forms.ModelForm):
+     class Meta:
+          model = model.Tranzakcio
+          fields = [
+               "szamla_id",
+               "osszeg",
+               "tranzakcio_fajta",
+          ]
+
+class WidthdrawForm(forms.Form):
+        osszeg = forms.IntegerField()
+        szamla_szam = forms.CharField(max_length=255)
+     
