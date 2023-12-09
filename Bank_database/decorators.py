@@ -3,11 +3,11 @@ from django.http import Http404
 from Bank_database.models import Szamla
 
 def is_lender(func):
-    def wrapper(*args):
+    def wrapper(*args,**kwargs):
         if args[0].user.is_authenticated:
 
             if args[0].user.szamla_tipus == "Lender":
-                return func(*args)
+                return func(*args,**kwargs)
             else:
                 raise Http404("You are not a Lender")
         else:
@@ -16,12 +16,12 @@ def is_lender(func):
         
 
 def is_investor(func):
-    def wrapper(*args):
+    def wrapper(*args,**kwargs):
         if str(args[0].user) != 'AnonymousUser':
             active_user = args[0].user
             user_account = Szamla.objects.get(szamla_tulajdonos = active_user)
             if user_account.szamla_tipus == "Investor":
-                return func(*args)
+                return func(*args,**kwargs)
             else:
                 raise Http404("You are not an Investor")
         else:

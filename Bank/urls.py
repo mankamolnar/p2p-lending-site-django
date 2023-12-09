@@ -16,23 +16,34 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
-import Bank_database.views as viewer
+from Bank_database.views.main import main
+from Bank_database.views.add_currency_to_account import add_currency_to_account
+from Bank_database.views.error_404 import error_404
+from Bank_database.views.invest_money import invest_money
+from Bank_database.views.lend_money import lend_money
+from Bank_database.views.list_lendings import list_lendings
+from Bank_database.views.list_your_taken_money import list_your_taken_money
+from Bank_database.views.logged import logged
+from Bank_database.views.my_investments import my_investments
+from Bank_database.views.register import register
+from Bank_database.views.transaction_list_for_user import transaction_list_for_user
+from Bank_database.views.withdraw_currency_from_account import withdraw_currency_from_account
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('user_example.urls')) saját url-ek
     path('accounts/', include('django.contrib.auth.urls')),
-    path('registration/', viewer.register, name='registration'),
+    path('registration/', register, name='registration'),
     #Custom login:
-    path('login/',viewer.logged, name="custom_login"),
-    path('', viewer.main, name="main_page"),
-    path('addtobalance/',viewer.add_currency_to_account,name='add_currency'),
-    path('list-lendings/',viewer.list_lendings,name='list_lendings'),
-    path('lend_money/',viewer.lend_money,name='lend_money'),
-    path('my-investments/', viewer.my_investments, name='my_investments'),
-    path('invest_money/<int:id>/',viewer.invest_money,name='invest_money'),
-    path('widthdrawn/', viewer.withdraw_currency_from_account, name="widthdrawn"),
-    path('transaction_list/',viewer.transaction_list_for_user, name="transaction_list")
+    path('login/',logged, name="custom_login"),
+    path('', main, name="main_page"),
+    path('addtobalance/',add_currency_to_account,name='add_currency'),
+    path('list-lendings/',list_lendings,name='list_lendings'),
+    path('lend_money/',lend_money,name='lend_money'),
+    path('my-investments/',my_investments, name='my_investments'),
+    path('invest_money/<int:id>/',invest_money,name='invest_money'),
+    path('widthdrawn/', withdraw_currency_from_account, name="widthdrawn"),
+    path('transaction_list/',transaction_list_for_user, name="transaction_list")
 ]
 #Error Handling with 404
-handler404 = "Bank_database.views.error_404"
+handler404 = "Bank_database.views.error_404.error_404"

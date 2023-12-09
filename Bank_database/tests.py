@@ -69,10 +69,10 @@ class LendingListTest(TestCase):
         response = self.client.get(reverse("list_lendings"))
         #then:
         self.assertTrue("<td>100.0</td>" in str(response.content))
-        self.assertTrue("<td>1</th>" in str(response.content))
-        self.assertTrue("<td>10.0</th>" in str(response.content))
-        self.assertTrue("<td>False</th>" in str(response.content))
-        self.assertTrue("<td>valami</th>" in str(response.content))
+        self.assertTrue("<td>1</td>" in str(response.content))
+        self.assertTrue("<td>10.0</td>" in str(response.content))
+        self.assertTrue("<td>False</td>" in str(response.content))
+        self.assertTrue("<td>valami</td>" in str(response.content))
 
 class RegistrationTest(TestCase):
     def setUp(self):
@@ -204,13 +204,16 @@ class TestAddBalance(TestCase):
         szamla = Szamla(aktualis_osszeg=9999, szamla_tulajdonos=user, szamla_tipus="Investor")
         szamla.save()
 
-        data =  urlencode({"osszeg": "1",})
+        data =  urlencode({
+                            "szamla_id" : user.id,
+                            "osszeg": "1",
+                            "tranzakcio_fajta":"Befizetés"
+                          })
         #when:
         self.client.login(username="testjani", password="testme")
         reponse = self.client.post(reverse("add_currency"),data,content_type="application/x-www-form-urlencoded")
 
         #then:
-        #print(reponse.content)
         self.assertTrue("<td>10000.0</td>" in str(reponse.content))
 
 
