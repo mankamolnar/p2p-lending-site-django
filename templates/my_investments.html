@@ -17,5 +17,18 @@
 
 <!--Page_Content-->
 {% block content %}
-  hali
+  <tr>
+      <th>Szamla</th>
+      <th>Kerelem</th>
+      <th>Osszeg</th>
+      <th>Törlesztett</th>
+  </tr>
+  <tr>
+    {%for list in investments %}
+      <td>{{list.szamla}}</td>
+      <td>{{list.kerelem}}</td>
+      <td>{{list.osszeg}}</td>
+      <td>{{list.torlesztett}}</td>
+    {%endfor%}
+  </tr>
 {% endblock %}
