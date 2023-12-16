@@ -30,11 +30,11 @@
        
 
         {% if request.user.is_authenticated %}
-          {% if request.user.szamla.szamla_tipus ==  "Investor" %}
+          {% if request.user.szamla_set[0].szamla_tipus ==  "Investor" %}
           <li class="nav-item">
-            <a class="nav-link" href="">Invest Money</a>
+            <a class="nav-link" href="{%url 'my_investments'%}">List Investments</a>
           </li>
-          {%endif%}
+          {% endif %}
         {% endif %}
         
 
