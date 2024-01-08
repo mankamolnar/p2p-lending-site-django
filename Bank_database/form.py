@@ -1,6 +1,9 @@
 #Imports:
 from typing import Any
-import Bank_database.models as model
+from Bank_database.models.Szamla import Szamla
+from Bank_database.models.Kerelem import Kerelem
+from Bank_database.models.Befektetes import Befektetes
+from Bank_database.models.Tranzakcio import Tranzakcio
 from django import forms
 from django.conf import settings
 from django.contrib.auth import password_validation
@@ -9,7 +12,7 @@ from django.forms.widgets import TextInput
 
 class Szamlaform(forms.ModelForm):
     class Meta:
-        model=model.Szamla
+        model=Szamla
         fields = [
                 "aktualis_osszeg",
                 "szamla_tulajdonos",
@@ -31,7 +34,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 class LendMoneyForm(forms.ModelForm):
         class Meta:
-             model = model.Kerelem
+             model = Kerelem
              fields = [
                   "osszeg",
                   "futamido",
@@ -42,7 +45,7 @@ class LendMoneyForm(forms.ModelForm):
 
 class InvestMoneyForm(forms.ModelForm):
      class Meta:
-          model = model.Befektetes
+          model = Befektetes
           fields = [
                "szamla",
                "kerelem",
@@ -52,7 +55,7 @@ class InvestMoneyForm(forms.ModelForm):
 
 class TransactionForm(forms.ModelForm):
      class Meta:
-          model = model.Tranzakcio
+          model = Tranzakcio
           fields = [
                "szamla_id",
                "osszeg",

@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from Bank_database.models import Szamla
+from Bank_database.models.Szamla import Szamla
 
 class Tranzakcio(models.Model):
     szamla_id = models.ForeignKey(Szamla,on_delete=models.CASCADE)
