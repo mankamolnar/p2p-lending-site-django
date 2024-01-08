@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
-from Bank_database.models import Szamla
-from Bank_database.models import Kerelem
+from Bank_database.models.Szamla import Szamla
+from Bank_database.models.Kerelem import Kerelem
 
 
 class Befektetes(models.Model):
